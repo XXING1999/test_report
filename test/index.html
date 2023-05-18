@@ -1,1 +1,594 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>测试报告</title>
+    <meta name="generator" content="HTMLTestReport 0.0.1"/>
+    <link rel="stylesheet" href="http://unpkg.com/layui@2.6.8/dist/css/layui.css">
+    
+<style type="text/css">
+    .title { width: auto; height: 60px; text-align: center; font: bolder 38px/60px "Microsoft YaHei UI"; color: #009688; }
+    .summary span { font: normal 16px/38px "Microsoft YaHei UI"; margin-left: 20px; }
+    .success-btn { background-color: #28a745; }
+    .skip-btn { background-color: #84898c; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #5cb85c; }
+    .skipCase   { color: #84898c; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+    .layui-table tbody tr:hover, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table[lay-even] tr:nth-child(even) {
+        background-color: transparent;
+    }
+</style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+                if (level == 2 || level == 0) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level < 2) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+        }      
+    }
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        if (displayState == 'block' || displayState == '' ) {
+            details_div.style.display = 'none'
+        }
+        else {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+    }
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+    --></script>
+    <div class="layui-container">
+        
+    <!--报告标题-->
+    <div class="title">测试报告</div>
+    
+    <!--汇总信息-->
+    <fieldset class="layui-elem-field summary">
+        <legend>测试结果汇总</legend>
+        <div class="layui-field-box">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="50%">
+                    <col width="50%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button type="button" class="layui-btn">开始时间</button>
+                            <span class="text-dark">2023-05-18 15:09:58</span>
+                        </td>
+                        <td>
+                            <button type="button" class="layui-btn">执行时间</button>
+                            <span class="text-dark">0:05:18.869970 s</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="layui-btn">用例总数</button>
+                            <span class="text-dark">9</span>
+                        </td>
+                        <td>
+                            <button type="button" class="layui-btn">通过率</button>
+                            <span class="text-dark">88.89%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" class="layui-btn">描述信息</button>
+                            <span class="text-dark">检索页测试报告V1.0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button type="button" class="layui-btn success-btn">成功用例：8</button>
+                            <button type="button" class="layui-btn layui-btn-warm">失败用例：0</button>
+                            <button type="button" class="layui-btn layui-btn-danger">错误用例：1</button>
+                            <button type="button" class="layui-btn skip-btn">跳过用例：0</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    
+    <!--图表展示-->
+    <fieldset class="layui-elem-field summary">
+        <legend>图表展示</legend>
+        <div class="layui-field-box">
+            <div class="char">
+                <div id="chart1" style="width: 49%;height: 400px;float: left"></div>
+                <div id="chart2" style="width: 49%;height: 400px;float: left"></div>
+            </div>
+        </div>
+    </fieldset>
+
+        
+    <fieldset class="layui-elem-field summary">
+        <legend>详细信息</legend>
+        <div class="layui-field-box">
+            <table id='result_table' class="layui-table">
+            <thead>
+                <tr id='header_row' style='background-color: #009688; color: #fff'>
+                    <th>测试用例</th>
+                    <th>总数</th>
+                    <th>通过</th>
+                    <th>失败</th>
+                    <th>错误</th>
+                    <th>跳过</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+				<tbody>
+                
+    <tr class='errorClass'>
+        <td class="text-center">testCase.TestSearch1.TestSearch1</td>
+        <td class="text-center">9</td>
+        <td class="text-center">8</td>
+        <td class="text-center">0</td>
+        <td class="text-center">1</td>
+        <td class="text-center">0</td>
+        <td class="text-center"><button type="button" class="layui-btn layui-btn-xs" onclick="showClassDetail('c1',9)">详细</button></td>
+    </tr>
+
+<tr id='ft1.1' class=''>
+    <td class='errorCase'><div class='testcase'>test_case01: 检查组件是否完整</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_ft1.1')">
+        错误</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_ft1.1' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>ft1.1: 2023-05-18 15:09:58 - START
+2023-05-18 15:09:58 - ***** 点击搜索框 ***** 
+2023-05-18 15:10:28 - ***** 进入检索页 ***** 
+2023-05-18 15:10:30 - Case01_01: 检查搜索框
+2023-05-18 15:10:33 - ***** 点击驻车态，返回至app首页 ***** 
+Traceback (most recent call last):
+  File "/Users/didi/Desktop/xing/didiWork/mona_cit/testCase/TestSearch1.py", line 43, in test_case01
+    raise CitException('Case01_01 Failed: 搜索框不存在')
+utils.testUtils.CitException: Case01_01 Failed: 搜索框不存在
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case02: 检索页-点击历史记录，是否可进入路线页</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.2')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.2' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.2: 2023-05-18 15:10:36 - START
+2023-05-18 15:10:36 - ***** 点击搜索框 ***** 
+2023-05-18 15:10:39 - ***** 进入检索页 ***** 
+2023-05-18 15:10:41 - Case_02: 历史poi-&gt;路线页-&gt;返回
+2023-05-18 15:10:43 - 1. 存在历史记录，当前case可验证
+2023-05-18 15:10:44 - 2. 选择当前历史记录中第1个poi【首都医科大学附属北京儿童医院】
+2023-05-18 15:10:47 - 3. 进入路线页
+2023-05-18 15:10:48 - 4. 点击返回, 回到检索页
+2023-05-18 15:10:50 - pass
+2023-05-18 15:10:53 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case03: 检索页-1.输入检索词，点击sug结果，是否可进入路线页 2. 添加途经点</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.3')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.3' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.3: 2023-05-18 15:10:57 - START
+2023-05-18 15:10:57 - ***** 点击搜索框 ***** 
+2023-05-18 15:11:00 - ***** 进入检索页 ***** 
+2023-05-18 15:11:02 - Case_03: 检索-&gt;搜索结果poi-&gt;路线页-&gt;添加途经点-&gt;新的路线页
+2023-05-18 15:11:03 - 1. 输入检索词:【北京大学】
+2023-05-18 15:11:08 - 2. 点击搜索结果中的第一个poi
+2023-05-18 15:11:11 - 3. 进入路线页
+2023-05-18 15:11:12 - 4. 点击添加途经点btn
+2023-05-18 15:11:15 - 5. 推荐记录超过2条，选择推荐记录中的poi作为途经点
+2023-05-18 15:11:16 - 6. 点击推荐记录中的第一个结果作为途经点
+2023-05-18 15:11:19 -    没有toast提示  ******
+2023-05-18 15:11:20 - 7. 点击推荐记录中的第二个结果作为途经点
+2023-05-18 15:11:22 -    没有toast提示
+2023-05-18 15:11:23 - 8. 重新进入路线页
+2023-05-18 15:11:24 - 9. 点击返回, 回到检索页, 清除输入框
+2023-05-18 15:11:27 - pass
+2023-05-18 15:11:29 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case04: 检索页-删除一条历史记录</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.4')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.4' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.4: 2023-05-18 15:11:33 - START
+2023-05-18 15:11:33 - ***** 点击搜索框 ***** 
+2023-05-18 15:11:35 - ***** 进入检索页 ***** 
+2023-05-18 15:11:37 - Case_04: 删除一条历史记录
+2023-05-18 15:11:40 - 1. 选择第一条历史记录：【滴滴·湾流大厦】
+2023-05-18 15:11:41 - 2. 左滑
+2023-05-18 15:11:43 - 3. 点击删除按钮
+2023-05-18 15:11:45 - 4. 【滴滴·湾流大厦】被成功删除
+2023-05-18 15:11:45 - pass
+2023-05-18 15:11:47 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case05: 检查【附近】的【充电】页</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.5')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.5' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.5: 2023-05-18 15:11:51 - START
+2023-05-18 15:11:51 - ***** 点击搜索框 ***** 
+2023-05-18 15:11:53 - ***** 进入检索页 ***** 
+2023-05-18 15:11:55 - Case_05: 附近tab-&gt;充电-&gt;品牌标签
+2023-05-18 15:11:56 - 1. 点击附近tab
+2023-05-18 15:11:59 - 2. 点击充电,进入充电站结果展示页
+2023-05-18 15:12:03 - 3. 点击【价格最低】标签
+2023-05-18 15:12:06 -    没有toast提示
+2023-05-18 15:12:08 - 4. 点击【距离最近】标签
+2023-05-18 15:12:11 -    没有toast提示
+2023-05-18 15:12:13 - 5. 点击返回，返回到rec页
+2023-05-18 15:12:17 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case06: 检查底图poi的详情页的【设为终点】</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.6')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.6' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.6: 2023-05-18 15:12:21 - START
+2023-05-18 15:12:21 - ***** 点击搜索框 ***** 
+2023-05-18 15:12:24 - ***** 进入检索页 ***** 
+2023-05-18 15:12:26 - Case_06_01: 检索rec页-&gt;底图poi-&gt;详情页【设为终点】-&gt;路线页-&gt;详情页
+2023-05-18 15:12:27 - 1. 点击底图上的一个poi
+2023-05-18 15:12:28 - 2. 进入详情页
+2023-05-18 15:12:30 - 3. 点击【设为终点】
+2023-05-18 15:12:33 - 4. 进入路线页
+2023-05-18 15:12:33 - pass
+2023-05-18 15:12:33 - 5. 点击返回, 回到详情页
+2023-05-18 15:12:36 - Case_06_02: 详情页-&gt;详情页【周边搜】
+2023-05-18 15:12:37 - 1. 点击【周边搜】
+2023-05-18 15:12:41 - 2. 进入周边搜页
+2023-05-18 15:12:43 - 3. 点击返回至详情页
+2023-05-18 15:12:45 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case08: 检查【家】- 设置家的地址，查看家的地址，修改家的地址</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.7')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.7' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.7: 2023-05-18 15:12:49 - START
+2023-05-18 15:12:49 - ***** 点击搜索框 ***** 
+2023-05-18 15:12:52 - ***** 进入检索页 ***** 
+2023-05-18 15:12:54 - ****** 点击附近tab ******
+2023-05-18 15:12:57 - Case_14: 设置家的地址，查看家的地址，修改家的地址
+2023-05-18 15:12:58 - *** 点击【家】
+2023-05-18 15:13:02 - *** 家的地址已经设置
+2023-05-18 15:13:02 - 1. 家的地址为【清华大学】，当前在路线页
+2023-05-18 15:13:02 - 2. 点击返回，返回rec页
+2023-05-18 15:13:06 - *** 修改家的地址 方法一：选择历史记录
+2023-05-18 15:13:07 - 1. 长按家的标志
+2023-05-18 15:13:10 - 2. 选择历史记录中的poi作为家的地址，当前家的地址为【清华大学】
+2023-05-18 15:13:12 - 3. 选择第2条历史poi，修改家的地址为【北京大学】
+2023-05-18 15:13:14 - 4. 没有toast提示
+2023-05-18 15:13:14 - 4. 家地址修改成功
+2023-05-18 15:13:14 - pass
+2023-05-18 15:13:17 - *** 修改家的地址 方法二：输入检索词
+2023-05-18 15:13:18 - 1. 长按家的标志
+2023-05-18 15:13:21 - 2. 当前家的地址为【北京大学】
+2023-05-18 15:13:21 -    输入家的地址为【清华大学】
+2023-05-18 15:13:25 - 3. 选择第一个搜索结果
+2023-05-18 15:13:28 - 4. 没有toast提示
+2023-05-18 15:13:28 - 4. 家地址设置成功，toast提示"家设置成功"
+2023-05-18 15:13:31 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case09: 检查【公司】- 设置公司的地址，查看公司的地址，修改公司的地址</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.8')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.8' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.8: 2023-05-18 15:13:35 - START
+2023-05-18 15:13:35 - ***** 点击搜索框 ***** 
+2023-05-18 15:13:38 - ***** 进入检索页 ***** 
+2023-05-18 15:13:40 - ****** 点击附近tab ******
+2023-05-18 15:13:43 - Case_15: 设置公司的地址，查看公司的地址，修改公司的地址
+2023-05-18 15:13:44 - *** 点击【公司】
+2023-05-18 15:13:46 - *** 公司的地址已经设置
+2023-05-18 15:13:46 - 1. 公司的地址为【滴滴·湾流大厦】，当前在路线页
+2023-05-18 15:13:48 - 2. 点击返回，返回rec页
+2023-05-18 15:13:51 - *** 修改公司的地址 方法一：选择历史记录
+2023-05-18 15:13:52 - 1. 长按公司的标志
+2023-05-18 15:13:55 - 2. 选择历史记录中的poi作为公司的地址，当前公司的地址为【滴滴·湾流大厦】
+2023-05-18 15:13:57 - 3. 选择第2条历史poi，修改公司的地址为【清华大学】
+2023-05-18 15:13:58 - 4. 没有toast提示
+2023-05-18 15:13:58 - 4. 公司地址修改成功
+2023-05-18 15:13:58 - pass
+2023-05-18 15:14:01 - *** 修改公司的地址 方法二：输入检索词
+2023-05-18 15:14:02 - 1. 长按公司的标志
+2023-05-18 15:14:05 - 2. 当前公司的地址为【清华大学】
+2023-05-18 15:14:06 -    输入公司的地址为【滴滴湾流】
+2023-05-18 15:14:10 - 3. 选择第一个搜索结果
+2023-05-18 15:14:12 - 4. 没有toast提示
+2023-05-18 15:14:12 - 4. 公司地址设置成功
+2023-05-18 15:14:15 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case10: 检查【收藏】- 添加收藏点，删除收藏点，清空收藏点</div></td>
+    <td>
+    <a onfocus='this.blur();' data-toggle="collapse" href="javascript:showTestDetail('div_pt1.9')">
+        通过</a>
+    </td>
+    <td colspan='5'>
+    <div id='div_pt1.9' class="collapse in">
+        <blockquote class="layui-elem-quote">
+            <pre>pt1.9: 2023-05-18 15:14:19 - START
+2023-05-18 15:14:19 - ***** 点击搜索框 ***** 
+2023-05-18 15:14:22 - ***** 进入检索页 ***** 
+2023-05-18 15:14:24 - ****** 点击附近tab ******
+2023-05-18 15:14:27 - Case_16: 添加收藏点，删除收藏点
+2023-05-18 15:14:27 - *** 点击【收藏】
+2023-05-18 15:14:29 - *** 点击【添加地点】
+2023-05-18 15:14:31 - *** 添加收藏点 方法一：点击历史记录poi
+2023-05-18 15:14:33 - 1. 当前存在历史记录，选择历史记录中的第一个poi【滴滴·湾流大厦】
+2023-05-18 15:14:34 - 2. 没有toast提示
+2023-05-18 15:14:35 - 3. 检查收藏tab下是否收藏成功
+2023-05-18 15:14:36 - 4. 【滴滴·湾流大厦】在收藏tab的第一条，的确收藏成功
+2023-05-18 15:14:36 - pass
+2023-05-18 15:14:39 - *** 点击【添加地点】
+2023-05-18 15:14:42 - *** 添加收藏点 方法二：输入检索词
+2023-05-18 15:14:42 - 1. 输入要收藏的地址为【kfc】
+2023-05-18 15:14:45 - 2. 选择第一个搜索结果【肯德基(辉煌国际店)】
+2023-05-18 15:14:48 - 3. 没有toast提示
+2023-05-18 15:14:49 - 4. 检查收藏tab下是否收藏成功
+2023-05-18 15:14:50 - 5. 【肯德基(辉煌国际店)】在收藏tab的第一条，的确收藏成功
+2023-05-18 15:14:51 - pass
+2023-05-18 15:14:54 - *** 删除收藏点
+2023-05-18 15:14:55 - 1. 删除第一个收藏点【肯德基(辉煌国际店)】
+2023-05-18 15:14:56 - 2. 左滑
+2023-05-18 15:14:59 - 3. 点击删除按钮
+2023-05-18 15:15:01 - 4. 【肯德基(辉煌国际店)】删除成功
+2023-05-18 15:15:02 - pass
+2023-05-18 15:15:05 - *** 清空全部收藏点
+2023-05-18 15:15:06 - 1. 当前页面存在"清空全部收藏"按钮
+2023-05-18 15:15:07 - 2. 点击"清空全部收藏"
+2023-05-18 15:15:09 - 3. "清空全部收藏"操作成功
+2023-05-18 15:15:10 - pass
+2023-05-18 15:15:13 - ***** 点击驻车态，返回至app首页 ***** 
+</pre>
+        </blockquote>
+    </div>
+    </td>
+</tr>
+
+                </tbody>
+                <tr id='total_row' class="text-center active">
+                    <td align="right">总计</td>
+                    <td>9</td>
+                    <td>8</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+	</fieldset>
+
+        <a href="#">
+    <ul class="layui-fixbar"><li class="layui-icon layui-fixbar-top" lay-type="top" style="display: list-item;"></li></ul>
+    </a>
+    
+        
+    <script type="text/javascript">
+        // 初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('chart1'));
+        var myChart2 = echarts.init(document.getElementById('chart2'));
+        // 指定图表的配置项和数据
+        option1 = {
+            tooltip: {
+                formatter: '{a} <br/>{b} : {c}%'
+            },
+            toolbox: {
+                feature: {
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            series: [{
+                name: '测试结果',
+                type: 'gauge',
+                detail: {
+                    formatter: '88.89%'
+                },
+                data: [{
+                    value: '88.89',
+                    name: '用例通过率'
+                }],
+                axisLine: {
+                    lineStyle: {
+                        color: [
+                            [0.2, '#c20000'],
+                            [0.8, '#ddb518'],
+                            [1, '#00a10a']
+                        ]
+                    }
+                }
+            }]
+        };
+        option2 = {
+            color: ['#00a10a', '#ddb518', 'rgba(204,46,41,0.73)', '#85898c'],
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 10,
+                data: ['通过', '失败', '错误', '跳过']
+            },
+            series: [{
+                name: '测试结果',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [{
+                        value: 8,
+                        name: '通过'
+                    },
+                    {
+                        value: 0,
+                        name: '失败'
+                    },
+                    {
+                        value: 1,
+                        name: '错误'
+                    },
+                    {
+                        value: 0,
+                        name: '跳过'
+                    }
+                ]
+            }]
+        };
+
+        myChart1.setOption(option1);
+        myChart2.setOption(option2);
+    </script>
+    
+    </div>
+</body>
+</html>
